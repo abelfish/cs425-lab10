@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="/fragments/head :: head"></head>
+  <body>
+    <header th:replace="/fragments/header :: header"></header>
+    <main class="container-md mt-5">
+      <div class="container">
+        <h1>List of Students</h1>
+        <form class="row g-3" action="/students/search" method="get">
+          <div class="col-4">
+            <input
+              class="form-control form-control col-2"
+              type="text"
+              name="search"
+              placeholder="Search Student by name or student number"
+              th:value="${search}"
+            />
+          </div>
+          <div class="col-auto">
+            <input class="btn btn-primary mx-2" type="submit" value="Search" />
+          </div>
+        </form>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" hidden></th>
+              <th scope="col">Student Number</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Middle Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Cumulative GPA</th>
+              <th scope="col">Enrollment Date</th>
+              <th scope="col">Is International</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="student : ${students}">
+              <td hidden="" th:text="${student.studentId}"></td>
+              <td th:text="${student.studentNumber}"></td>
+              <td th:text="${student.firstName}"></td>
+              <td th:text="${student.middleName}"></td>
+              <td th:text="${student.lastName}"></td>
+              <td th:text="${student.cgpa}"></td>
+              <td th:text="${student.enrollmentDate}"></td>
+              <td th:text="${student.isInternational}"></td>
+              <td>
+                <a th:href="@{/students/edit/__${student.studentId}__}">Edit</a>
+              </td>
+              <td>
+                <a th:href="@{/students/delete/__${student.studentId}__}"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>
